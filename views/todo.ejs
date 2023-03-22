@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="css/todo.css">
+</head>
+<body>
+  <div class="container">
+    <h1>To-Do List</h1>
+    <form>
+      
+      <div class="form-row">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="3"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select id="category" name="category">
+            <option value="personal">Personal</option>
+            <option value="work">Work</option>
+            <option value="school">School</option>
+            <option value="cleaning">Cleaning</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="due-date">Due Date:</label>
+          <input type="date" id="due-date" name="due-date">
+        </div>
+      </div>
+      <div class="form-row">
+        <button type="button" id="add-task">Add Task</button>
+        <button type="button" id="delete-task">Delete Task</button>
+      </div>
+      <div class="form-row">
+        <ul id="task-list" class="form-group">
+            <li><span>go to school</span><label for="">Personal</label></li>
+            <li><span>study</span><label for="">Personal</label></li>
+            <li><span>go to market</span><label for="">Personal</label></li>
+        </ul>
+      </div>
+
+    </form>
+    
+    
+  </div>
+  <script src="js/home.js"></script>
+</body>
+</html>
