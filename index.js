@@ -2,6 +2,7 @@ const express = require('express');
 const port =8000;
 const expressLayouts= require('express-ejs-layouts'); // importing the express-layouts
 const app= express();
+const db =require('./config/mongoose'); // importing mongoose config 
 
 // this middleware, it allows us to define a layout for our entire application
 app.use(expressLayouts);
