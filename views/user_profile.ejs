@@ -1,5 +1,43 @@
 <link rel="stylesheet" href="/css/home.css">
-    <h1>Codeial/<%=title%></h1>
-   
-   
-    
+<link rel="stylesheet" href="/css/profile.css">
+<div class="header">
+<h1>User Profile</h1>
+<a href="/users/delete-session"><button id="sign-out-btn">Sign Out</button></a>
+</div>
+<div class="container">
+<!-- <div class="profile-pic">
+    <img src="https://www.google.com/imgres?imgurl=https%3A%2F%2Fhelostatus.com%2Fwp-content%2Fuploads%2F2021%2F08%2Fprofile-pictures-for-WhatsApp-1024x1024.jpg%3Fis-pending-load%3D1&tbnid=4ZtLGtocLIxdEM&vet=12ahUKEwjPvvv0w_P9AhXOwDgGHan3AIMQMyg3egQIARBv..i&imgrefurl=https%3A%2F%2Fhelostatus.com%2Fwhatsapp-dp-images%2F&docid=6UBhkbBfdu9PYM&w=1024&h=1024&q=profile%20pic&ved=2ahUKEwjPvvv0w_P9AhXOwDgGHan3AIMQMyg3egQIARBv" alt="Profile Picture">
+</div> -->
+<div class="user-details">
+    <h2><%=name%></h2>
+    <p>Web Developer</p>
+    <p><%=email%></p>
+    <p>555-1234</p>
+    <p>123 Main Street, Anytown INDIA</p>
+</div>
+<div class="actions">
+   <a href=""><button id="add-friend-btn">Add Friend</button></a> 
+    <a href=""><button id="profile-page-btn">View Profile Page</button></a>
+</div>
+<div class="post-message">
+    <h3>Post a Message</h3>
+    <form>
+    <textarea id="message-input" rows="4" cols="50"></textarea>
+    <button id="post-message-btn">Post</button>
+    </form>
+</div>
+<div class="previous-messages">
+    <h3>Previous Messages</h3>
+    <ul id="messages-list">
+    <li>Message 1</li>
+    <li>Message 2</li>
+    <li>Message 3</li>
+    </ul>
+</div>
+</div>
+
+
+
+
+
+
