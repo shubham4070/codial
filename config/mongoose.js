@@ -1,8 +1,9 @@
 // require the library
 const mongoose= require('mongoose');
-
+// const path= 'mongodb://localhost/codeial_dev';
+ const path = 'mongodb+srv://shubham21101997:1XKDfXnqsQmSfI8C@codeial.0y4o9t7.mongodb.net/?retryWrites=true&w=majority';
 //connected to database -
-mongoose.connect('mongodb://localhost/codeial_dev');
+mongoose.connect(path);
 
 //acquire the connection to check if it is successful
 const db=mongoose.connection;

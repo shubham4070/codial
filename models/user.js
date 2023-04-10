@@ -1,25 +1,22 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    email : {
+    email: {
         type: String,
-        required : true,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true,
         unique : true
     },
-    
-    password:{
+    name: {
         type: String,
-        required :true,
-        unique : true
+        required: true
     },
+}, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }); // Set timestamps option to an object with createdAt and updatedAt properties
 
-    name:{
-        type: String,
-        required : true
-    },
-    timestamps: true
-});
-// the name of collection('user') to be stored in database
-const user = mongoose.model('user',userSchema);
+const User = mongoose.model('User', userSchema); // Rename 'user' to 'User' and export it as a variable
 
-module.exports = user;
+module.exports = User;

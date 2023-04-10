@@ -1,43 +1,171 @@
 <link rel="stylesheet" href="/css/home.css">
 <link rel="stylesheet" href="/css/profile.css">
-<div class="header">
-<h1>User Profile</h1>
-<a href="/users/delete-session"><button id="sign-out-btn">Sign Out</button></a>
-</div>
-<div class="container">
-<!-- <div class="profile-pic">
-    <img src="https://www.google.com/imgres?imgurl=https%3A%2F%2Fhelostatus.com%2Fwp-content%2Fuploads%2F2021%2F08%2Fprofile-pictures-for-WhatsApp-1024x1024.jpg%3Fis-pending-load%3D1&tbnid=4ZtLGtocLIxdEM&vet=12ahUKEwjPvvv0w_P9AhXOwDgGHan3AIMQMyg3egQIARBv..i&imgrefurl=https%3A%2F%2Fhelostatus.com%2Fwhatsapp-dp-images%2F&docid=6UBhkbBfdu9PYM&w=1024&h=1024&q=profile%20pic&ved=2ahUKEwjPvvv0w_P9AhXOwDgGHan3AIMQMyg3egQIARBv" alt="Profile Picture">
-</div> -->
-<div class="user-details">
-    <h2><%=name%></h2>
-    <p>Web Developer</p>
-    <p><%=email%></p>
-    <p>555-1234</p>
-    <p>123 Main Street, Anytown INDIA</p>
-</div>
-<div class="actions">
-   <a href=""><button id="add-friend-btn">Add Friend</button></a> 
-    <a href=""><button id="profile-page-btn">View Profile Page</button></a>
-</div>
-<div class="post-message">
-    <h3>Post a Message</h3>
-    <form>
-    <textarea id="message-input" rows="4" cols="50"></textarea>
-    <button id="post-message-btn">Post</button>
-    </form>
-</div>
-<div class="previous-messages">
-    <h3>Previous Messages</h3>
-    <ul id="messages-list">
-    <li>Message 1</li>
-    <li>Message 2</li>
-    <li>Message 3</li>
-    </ul>
-</div>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codeial | Profile</title>
+    <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
+<!-- Font Awesome CSS -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    
+</head>
+<body>
+   
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark custom-header">
+        <div class="container">
+            <a class="navbar-brand" href="#">Codeial</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Friends</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/delete-session">Logout</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-user"></i> <%=user.email%>
+                        </a> 
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="/users/edit">Update Profile</a>
+                          <a class="dropdown-item" href="#">Change Password</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#">Account Settings</a>
+                        </div>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
 
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-lg-4 col-md-5">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <img class="img-fluid rounded-circle mb-3" src="profile.png" alt="User's profile picture" >
+                        <h5 class="card-title"><%=name%></h5>
+                        <p class="card-text">Web Developer</p>
+                        <a href="/users/edit" class="btn btn-primary btn-block mb-3">Edit Profile</a>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6>Friends</h6>
+                            <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+                        </div>
+                        <ul class="list-unstyled mt-3">
+                            <li><a href="#">Friend 1</a></li>
+                            <li><a href="#">Friend 2</a></li>
+                            <li><a href="#">Friend 3</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-7">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form action="/post/create" method="POST">
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3" placeholder="What's on your mind?" name="post"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary float-right" >Post</button> 
+                        </form>
+                    </div>
+                </div>
+            
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Recent Posts</h5>
+                    </div>
+                    <!--       for loop      -->
+                    <% for (var i = Posts.length - 1; i >= Posts.length - 3 && i >= 0; i--) { %>
+                        <div class="card-body">
+                          <div class="media mb-3">
+                            <img src="https://via.placeholder.com/64" class="mr-3 rounded-circle" alt="User's profile picture">
+                            <div class="media-body">
+                              <h5 class="mt-0" style="text-transform: uppercase;"><%= name %></h5>
+                              <p><%= Posts[i].content %></p>
+                              <p class="small text-muted"><%= Posts[i].created_at ? new Date(Posts[i].created_at).toLocaleString() : '9/4/2023, 12:22:21 am' %></p>
+                              <div class="d-flex justify-content-between">
+                                <form action="/post/destroy/<%=Posts[i]._id %>" method="GET">
+                                  <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                                <a href="" class="btn btn-secondary">Edit</a>
+                            </div>
+                            <br><br>
+                            <% for (var j = Posts[i].comments.length -1; j >= Posts[i].comments.length -3 && j>=0 ; j--) { %>
+                                <div style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; margin-bottom: 5px;">
+                                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
+                                    <div style="font-size: 14px;"><%= Posts[i].comments[j].user.name.toUpperCase() %></div>
+                                    <div>
+                                      <button style="background-color: transparent; border: none;"><i class="far fa-heart"></i></button>
+                                      <span style="margin-left: 5px;">0 likes</span>
+                                    </div>
+                                  </div>
+                                  <div style="font-size: 16px; font-family: Arial, sans-serif;"><%= Posts[i].comments[j].content %></div>
+                                </div>
+                              <% } %>
+                              <hr>
+                            </div>
+                          </div>
+                        </div>
+                      <% } %>
+                      
+                      
+                      
+                    
+                    
+                </div>
+            
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Your Friends</h5>
+                        <div class="row">
+                            <div class="col-4 mb-4">
+                                <img src="https://via.placeholder.com/150" alt="User's profile picture" class="rounded-circle img-fluid">
+                                <h6 class="mt-2">John Doe</h6>
+                            </div>
+                            <div class="col-4 mb-4">
+                                <img src="https://via.placeholder.com/150" alt="User's profile picture" class="rounded-circle img-fluid">
+                                <h6 class="mt-2">Jane Smith</h6>
+                            </div>
+                            <div class="col-4 mb-4">
+                                <img src="https://via.placeholder.com/150" alt="User's profile picture" class="rounded-circle img-fluid">
+                                <h6 class="mt-2">Jane Smith</h6>
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+<script>
+    $(document).ready(function(){
+      $('.dropdown-toggle').dropdown();
+    });
+    </script>
+    
 

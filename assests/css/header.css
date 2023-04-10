@@ -1,0 +1,54 @@
+header {
+  background-color: #1d1d45;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  overflow: hidden;
+}
+
+header .header-title {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+header .header-buttons {
+  display: flex;
+  border-radius: 10%;
+  color: #333;
+  justify-content: center;
+  align-items: center;
+}
+
+header .header-buttons button {
+  border-radius: 10%;
+  height: 40px;
+  width: 72px;
+  cursor: pointer;
+  margin-right: 20px;
+  padding: 0px;
+}
+
+header .header-buttons button:hover {
+  background-color: #533f3f;
+}
+
+header .header-buttons .sign-in-button {
+  background-color: white;
+  color: #1d1d45;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+header .header-buttons .sign-out-button {
+  background-color: #1d1d45;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}

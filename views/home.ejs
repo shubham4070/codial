@@ -1,29 +1,32 @@
 <link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<main>
         <section>
             <h2>Welcome to Codeial</h2>
             <p>Connect with friends, share your thoughts and experiences, and explore new ideas on Codeial.</p>
-            <a href="/users/sign-in"><button>Sign Up</button></a>
-            <a href="/users/sign-up"><button>Log In</button></a>
+            <a href="/users/sign-up"><button class=".b">Sign Up</button></a>
+            <a href="/users/sign-in"><button class=".b">Log In</button></a>
                 
         </section>
     
         <section>
             <h2>Popular Posts</h2>
-            <ul>
-                <li><a href="#">10 Tips for Better Time Management</a></li>
-                <li><a href="#">How to Improve Your Networking Skills</a></li>
-                <li><a href="#">The Benefits of Meditation</a></li>
-                <li><a href="#">Why You Should Travel More</a></li>
-            </ul>
+            <!-- Adding post partials -->
+             <%-include('_post')%>
+              
         </section>
     
-        <section>
+        <section id="users-friends">
             <h2>Recent Activity</h2>
             <ul>
-                <li><a href="#">Shubham Kumar</a> posted a new status update</li>
-                <li><a href="#">Jane Smith</a> liked a photo</li>
-                <li><a href="#">Alex Johnson</a> commented on a post</li>
+                <% for(u of all_users){%>
+                  <li>
+                    <p>
+                      <a href="/users/profile/<%=u.id%>"><%=u.name%></a>
+                    </p>
+                  </li>
+
+                <%}%>
             </ul>
         </section>
     </main>
