@@ -1,22 +1,30 @@
 <link rel="stylesheet" href="/css/home.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+ 
+  
+
 	<main>
-        <section>
+    <section style="width: 100%;">
+      
             <h2>Welcome to Codeial</h2>
-            <p>Connect with friends, share your thoughts and experiences, and explore new ideas on Codeial.</p>
-            <a href="/users/sign-up"><button class=".b">Sign Up</button></a>
-            <a href="/users/sign-in"><button class=".b">Log In</button></a>
-                
-        </section>
+            <p class="lead">Codeial is an online platform where you can interact with like-minded individuals, exchange knowledge and ideas, and build connections with people who share your interests. With a user-friendly interface and a vibrant community, Codeial offers a seamless experience that lets you discover new perspectives, learn from others, and engage in meaningful discussions.</p>
+            <p class="lead">Whether you're a beginner or an experienced professional, Codeial has something for everyone. Join us today and start exploring a world of possibilities!</p>
+            <a href="/users/sign-up" class="btn btn-primary mr-2"><i class="fas fa-user-plus mr-1"></i>Sign Up</a>
+            <a href="/users/sign-in" class="btn btn-outline-primary"><i class="fas fa-sign-in-alt mr-1"></i>Log In</a>
+         
+    </section>
     
-        <section>
+    
+        <section style="width: 100%;">
             <h2>Popular Posts</h2>
             <!-- Adding post partials -->
              <%-include('_post')%>
               
         </section>
     
-        <section id="users-friends">
+        <section id="users-friends" style="width: 100%;">
             <h2>Recent Activity</h2>
             <ul>
                 <% for(u of all_users){%>
@@ -30,3 +38,11 @@
             </ul>
         </section>
     </main>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>  

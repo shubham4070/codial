@@ -2,61 +2,48 @@ const User = require('../models/user')
 const Post = require('../models/post');
 
 
-module.exports.profile= function(req,res){
-
-  //find the cookies
-  User.findOne({_id:req.user.id})
-  .then(function(user){ // user is referring to document
-    // if session is  created
-    if(user){
-      Post.find({user:req.user._id})// getting the post for the particular User
-       .populate('user')
-       .populate({
-         path: 'comments',
-         populate:{
-          path: "user"
-         }
-       })
-        .then(function(posts){
-          return res.render('user_profile',{
-            name: user.name,
-            Posts: posts,
-            email:user.email,
-            user: user
-          })
-        })
-        .catch(function(err){
-         console.log("error while getting post", err);
-         return res.redirect('back');
-      })
+module.exports.profile= async function(req,res){
+try{
+    //find the cookies-seesion
+  let user = await User.findOne({_id:req.user.id});
+  // if session is  created
+  if(user){
+     let posts =  await Post.find({user:req.user._id})// getting the post for the particular User
+     .populate('user')
+     .populate({
+       path: 'comments',
+       populate:{
+        path: "user"
+       }
+     });
       
-    }
-    else{
-      return res.redirect('/users/sign-in');
-     } 
-    
-    
-    // if cookies is not created
-     
-  })
-  //if some error occur
-  .catch(function(err){
-    console.log('error in finding user in logging in to profile',err);
-    return res.redirect('back');
-})
-
+     return res.render('user_profile',{
+          name: user.name,
+          Posts: posts,
+          email:user.email,
+          user: user
+        })
+  }
+ 
+}catch{
+  req.flash('error','Login first');
+   console.log('error in fetching the user');
+   return res.redirect('/users/sign-in');
+}
     
 }
 
 
 
 module.exports.sign_in = function(req,res){
+  
     res.render('sign-in',{
         title : "Sign-in"
     });
 }
 
 module.exports.sign_up = function(req,res){
+  // req.flash('success','Successfully sign up');
     res.render('sign-up',{
         title : "Sign-up",
         action : "/users/create"
@@ -88,35 +75,34 @@ module.exports.sign_up = function(req,res){
       });
 }*/
 // create the user 
-module.exports.create = function(req, res) {
-    if (req.body.password != req.body.confirm_password) {
-      return res.redirect('back');
-    }
-    User.findOne({ email: req.body.email })
-      .then(function(user) {
-        if (!user) {
-          User.create(req.body)
-            .then(function(user) {
-              return res.redirect('/users/sign-in');
-            })
-            .catch(function(err) {
-              console.log('error in creating user while signing up', err);
-              return res.redirect('back');
-            });
-        } else {
-          console.log('user already exists');
-          return res.redirect('back');
-        }
-      })
-      .catch(function(err) {
-        console.log('error in finding user in signing up', err);
+module.exports.create = async function(req, res) {
+  try{
+      if (req.body.password != req.body.confirm_password) {
         return res.redirect('back');
-      });
+      }
+     let user = await User.findOne({ email: req.body.email })
+        
+          if (!user) {
+            await User.create(req.body)
+            req.flash('success','Successfully user created');
+            return res.redirect('/users/sign-in');
+              
+          } else {
+            req.flash('error','email id is already in use');
+            console.log('user already exists');
+            return res.redirect('back');
+          }
+  }catch{
+         console.log("error",err);
+         return;
+    }
+      
   };
   
 
 //sign in and create session for the user
 module.exports.createSession = function(req,res){
+  req.flash('success','Successfully signed in');
     return res.redirect('/users/profile');
 }
 
@@ -124,10 +110,11 @@ module.exports.createSession = function(req,res){
 module.exports.sign_out = function(req,res){
   req.logout(function(err){
     if(err){
+      req.flash('error','Unable to log out!');
       console.log("Error logging out:", err);
       return ;
     }
-
+    req.flash('success','Successfully Logged out!');
    return  res.redirect('/users/sign-in');
   });
 }

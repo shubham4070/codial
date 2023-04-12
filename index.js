@@ -13,9 +13,9 @@ const passportLocal= require('./config/passport-local-strategy');
 const MongoDBStore = require('connect-mongodb-session')(session);
 //sass middleware
 const sassMiddleware = require('node-sass-middleware');
-
+const flash = require('connect-flash');
+const customeMiddleware = require('./config/middleware');
 const app= express();  //creates an instance of the Express.js application
-
 app.use(sassMiddleware({
     src :'./assests/scss',
     dest: './assests/css',
@@ -45,8 +45,8 @@ app.set('views','./views');
 
 
 const store = new MongoDBStore({
-    // uri: 'mongodb://localhost:27017/codeial_dev',
-    uri :'mongodb+srv://shubham21101997:1XKDfXnqsQmSfI8C@codeial.0y4o9t7.mongodb.net/?retryWrites=true&w=majority',
+    uri: 'mongodb://localhost:27017/codeial_dev',
+    //uri :'mongodb+srv://shubham21101997:1XKDfXnqsQmSfI8C@codeial.0y4o9t7.mongodb.net/?retryWrites=true&w=majority',
     collection: 'sessions'
 });
 
@@ -71,7 +71,7 @@ app.use(session({
     saveUninitialized : false,
     resave:false,
     cookie:{
-        maxAge: (1000 * 60 * 60) // equivalent 1 hour
+        maxAge: (1000 * 60 * 60 * 24) // equivalent 24 hour
     },
     store: store
 }));
@@ -89,8 +89,12 @@ When a user logs in using Passport.js, the user's information is serialized into
 
 app.use(passport.setAuthenticatedUser);
 
+// flash notification
+app.use(flash());
+app.use(customeMiddleware.setflash);
 //use express router
 app.use('/', require('./routes'));
+
 
 
 app.listen(port,function(err){

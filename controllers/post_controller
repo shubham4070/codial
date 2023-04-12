@@ -2,59 +2,65 @@ const Post = require('../models/post');
 const Comment = require("../models/comments");
 
 
-module.exports.create = function(req, res) {
-  if (!req.body.post) {
-    return res.redirect('/users/profile');    
-  } else {
-    
-          var data = {
-            content: req.body.post,
-            user: req.user._id
-          }
-     Post.create(data)
-       .then(function(post){
-           console.log("successfully posted");
-           return res.redirect('/users/profile');    
-        })
-        .catch(function(err){
-          console.log('error while posting',err);
-          return res.redirect('/users/profile');    
-        })   
-  }
+module.exports.create = async function(req, res) {
+   try{
+    if (!req.body.post) {
+      return res.redirect('/users/profile');    
+    } else {
+      
+            var data = {
+              content: req.body.post,
+              user: req.user._id
+            }
+        let post= await Post.create(data);
+         // ajax call
+         if (req.xhr){
+           // returns json
+           return res.status(200).json({
+            data:{
+              post: post
+            },
+             message: "Post created!"
+           })
+         }
+
+        req.flash('success','Succssfully posted!');
+        console.log("successfully posted");
+        return res.redirect('back');    
+    }
+   }catch(err){
+    req.flash('error','Unable to post!');
+    console.log("erorr while posting",err);
+    return res.redirect('back');    
+   }
 }
 
 // deleting the post
-module.exports.delete = function(req,res){
-  console.log(req.params.id);
+module.exports.delete = async function(req,res){
+  // console.log(req.params.id);
   //find the post if it exists
-  Post.findById(req.params.id)
-    .then( function(post){
-      console.log(post);
-      console.log(req.user.id);
-      console.log(post.user);
+  try {
+    let post = await Post.findById(req.params.id);
+   
+      // console.log(post);
+      // console.log(req.user.id);
+      // console.log(post.user);
+
       //check the Authorized User == User who has created the post has rights to delete
       // req.user._id should be used but req.user.id convert the objectID into string which is need for comaprison
       if(post.user == req.user.id){
        // delete the post 
        post.remove();
-
+       req.flash('success','Successfully deleted the post!');
       // delete all comments associated with the post
-       Comment.deleteMany({post : req.params.id})
-        .then(function(bool){
-          console.log("successfully all the comments",bool);
+      let bool= await Comment.deleteMany({post : req.params.id});
+        
+          console.log("successfully delted all the comments",bool);
           return res.redirect('back');
-        })
-        .catch(function(err){
-          console.log("Error while deleting the comment",err);
-          return res.redirect('back');
-       
-        })
       }
-      
-    })
-    .catch(function(err){
-          console.log("Error while finding the post",err);
-          return res.redirect('back');
-
-    })
+  } catch (error) {
+     req.flash('error','Something went wrong!');
+      console.log(`error:${error}`);
+      return ;
+  }  
 }

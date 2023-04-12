@@ -9,6 +9,8 @@
 
 <!-- Font Awesome CSS -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css" integrity="sha512-0p3K0H3S6Q4bEWZ/WmC94Tgit2ular2/n0ESdfEX8l172YyQj8re1Wu9s/HT9T/T2osUw5Gx/6pAZNk3UKbESw==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js" integrity="sha512-lOrm9FgT1LKOJRUXF3tp6QaMorJftUjowOWiDcG5GFZ/q7ukof19V0HKx/GWzXCdt9zYju3/KhBNdCLzK8b90Q==" crossorigin="anonymous"></script>
     
 </head>
 <body>
@@ -78,7 +80,7 @@
             <div class="col-lg-8 col-md-7">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <form action="/post/create" method="POST">
+                        <form action="/post/create" method="POST" id="new-post-form">
                             <div class="form-group">
                                 <textarea class="form-control" rows="3" placeholder="What's on your mind?" name="post"></textarea>
                             </div>
@@ -153,14 +155,18 @@
             </div>
         </div>
     </div>
+    <!--  js assests file-->
+
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="/js/jquery-3.6.0.js"></script>
+<script src="/js/home_posts.js"></script>    
+
 
 <!-- Popper.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> -->
 
 <!-- Bootstrap JS -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
 
 <script>
     $(document).ready(function(){
